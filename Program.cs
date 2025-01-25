@@ -23,6 +23,12 @@ class Program
 
     if(args[0] == "--show")
     {
+      string green = "\x1b[0;32m";
+      string yellow = "\x1b[1;33m";
+      string red = "\x1b[0;31m";
+      string blue = "\x1b[0;34m";
+      string reset = "\x1b[0m";
+
       Dictionary<string, string> data = new Dictionary<string, string>();
 
       var date = WatchLog.GetDate(); 
@@ -40,11 +46,11 @@ class Program
           data[key] = value;
         }
       }
-      Console.WriteLine("{0,-30} {1,-30}", "App", "Time");
-      Console.WriteLine(new string('-', 60));
+      Console.WriteLine($"{yellow}{"App",-30}{"Time",30}{reset}");
+      Console.WriteLine($"{red}{new string('-', 60)}{reset}");
       foreach (var entry in data)
       {
-        Console.WriteLine("{0,-30} {1,-30}", entry.Key, entry.Value);
+        Console.WriteLine($"{blue}{entry.Key,-30}{reset}{green}{entry.Value,30}{reset}");
       }
     }
   }

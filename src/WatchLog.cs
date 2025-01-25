@@ -143,7 +143,7 @@ namespace hyprwatch.Logger
         }
       }
 
-        bool isAfk = false;
+        //bool isAfk = false;
         //int afkTimeout = 1;
         
         var data = ImportData(filename);
@@ -155,36 +155,32 @@ namespace hyprwatch.Logger
           filename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{date}.csv");
           Console.WriteLine(data);
 
-          if(!isAfk)
+          string activeWindow = GetWindows.ActiveWindow();
+          string usage = data.TryGetValue(activeWindow, out string? value) ? value : null;
+          if(usage == null)
           {
-            string activeWindow = GetWindows.ActiveWindow();
-            string usage = data.TryGetValue(activeWindow, out string? value) ? value : null;
-            if(usage == null)
-            {
-              usage = "00:00:00";
-            }
-
-            Thread.Sleep(1000);
-
-            usage = TimeOperations.TimeAddition("00:00:01", usage);
-            data[$"{activeWindow}"] = usage;
-
-            if(File.Exists(filename))
-            {
-              UpdateCSV(GetDate(), data);
-            }
-            else if(!File.Exists(filename))
-            {
-              string newFilename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{GetDate()}.csv");
-              using (var fp = File.Create(newFilename))
-              {
-                // The using block ensures the file is created and closed properly
-              }
-
-              data.Clear();
-            }
+            usage = "00:00:00";
           }
-        
+
+          Thread.Sleep(1000);
+
+          usage = TimeOperations.TimeAddition("00:00:01", usage);
+          data[$"{activeWindow}"] = usage;
+
+          if(File.Exists(filename))
+          {
+            UpdateCSV(GetDate(), data);
+          }
+          else if(!File.Exists(filename))
+          {
+            string newFilename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{GetDate()}.csv");
+            using (var fp = File.Create(newFilename))
+            {
+                // The using block ensures the file is created and closed properly
+            }
+
+            data.Clear();
+          }
       }
     }
   }

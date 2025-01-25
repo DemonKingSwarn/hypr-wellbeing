@@ -43,5 +43,4 @@ namespace hyprwatch.Window
       return activeWindow ?? string.Empty;
     }
   }
-    
 }

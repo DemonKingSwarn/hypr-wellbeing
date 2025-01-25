@@ -40,7 +40,7 @@ namespace hyprwatch.Window
         Console.WriteLine(ex.Message);
       }
 
-      return activeWindow;
+      return activeWindow ?? string.Empty;
     }
   }
     

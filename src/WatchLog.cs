@@ -40,7 +40,7 @@ namespace hyprwatch.Logger
         Console.WriteLine(ex.Message);
       }
 
-      return t;
+      return t ?? string.Empty;
     }
 
     public static string GetDate()
@@ -73,16 +73,24 @@ namespace hyprwatch.Logger
         Console.WriteLine(ex.Message);
       }
 
-      return d;
+      return d ?? string.Empty;
     }
 
     static void UpdateCSV(string date, Dictionary<string, string> data)
     {
-      string homeDir = Environment.GetEnvironmentVariable("HOME");
-      string dataDir = Path.Combine(homeDir, ".cache", "hyprwatch", "daily_data");
+      string homeDir = Environment.GetEnvironmentVariable("HOME") ?? throw new InvalidOperationException("HOME environment variable is not set.");
       string filePath = Path.Combine(homeDir, ".cache", "hyprwatch", "daily_data", $"{date}.csv");
 
-      Directory.CreateDirectory(Path.GetDirectoryName(dataDir));
+
+      string? dirPath = Path.GetDirectoryName(filePath);
+      if(dirPath is not null)
+      {
+        Directory.CreateDirectory(dirPath);
+      }
+      else
+      {
+        throw new InvalidOperationException("Invalid file path.");
+      }
 
       var overwriteData = new List<string[]>();
       foreach(var kvp in data)
@@ -133,12 +141,14 @@ namespace hyprwatch.Logger
         {
           // The using block ensures the file is created and closed properly
         }
+      }
 
         bool isAfk = false;
-        int afkTimeout = 1;
+        //int afkTimeout = 1;
         
         var data = ImportData(filename);
-
+        data ??= new Dictionary<string, string>();
+        
         while(true)
         {
           string date = GetDate();
@@ -148,13 +158,13 @@ namespace hyprwatch.Logger
           if(!isAfk)
           {
             string activeWindow = GetWindows.ActiveWindow();
-            string usage = data.TryGetValue(activeWindow, out string value) ? value : null;
+            string usage = data.TryGetValue(activeWindow, out string? value) ? value : null;
             if(usage == null)
             {
               usage = "00:00:00";
             }
 
-            Thread.Sleep(1);
+            Thread.Sleep(1000);
 
             usage = TimeOperations.TimeAddition("00:00:01", usage);
             data[$"{activeWindow}"] = usage;
@@ -174,7 +184,7 @@ namespace hyprwatch.Logger
               data.Clear();
             }
           }
-        }
+        
       }
     }
   }

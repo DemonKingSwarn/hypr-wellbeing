@@ -46,12 +46,27 @@ class Program
           data[key] = value;
         }
       }
+      
+      TimeSpan totalTime = TimeSpan.Zero;
+
+      foreach (var entry in data)
+      {
+        if (TimeSpan.TryParse(entry.Value, out TimeSpan time))
+        {
+          totalTime += time;
+        }
+      }
+
+      Console.WriteLine($"Today's Screen Usage\t{totalTime}");
+      Console.WriteLine($"{red}{new string('-', 60)}{reset}");
       Console.WriteLine($"{yellow}{"App",-30}{"Time",30}{reset}");
       Console.WriteLine($"{red}{new string('-', 60)}{reset}");
+      
       foreach (var entry in data)
       {
         Console.WriteLine($"{blue}{entry.Key,-30}{reset}{green}{entry.Value,30}{reset}");
       }
+      
     }
   }
 

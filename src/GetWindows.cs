@@ -40,6 +40,11 @@ namespace hyprwatch.Window
         Console.WriteLine(ex.Message);
       }
 
+      if(activeWindow == null)
+      {
+        activeWindow = "Home-Screen";
+      }
+
       return activeWindow ?? string.Empty;
     }
   }

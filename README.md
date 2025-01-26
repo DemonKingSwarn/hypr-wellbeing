@@ -7,7 +7,7 @@
 ### Monitor Mode
 
 ```sh
-hyprwatch -d &> /dev/null & disown
+hyprwatch -d &> /dev/null &
 ```
 
 ### Show Stats

@@ -7,6 +7,7 @@
 ### Monitor Mode
 
 ```sh
+mkdir -p $HOME/.cache/hyprwatch/daily_data
 hyprwatch -d &> /dev/null &
 ```
 

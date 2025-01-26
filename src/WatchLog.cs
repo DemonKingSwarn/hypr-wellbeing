@@ -130,7 +130,8 @@ namespace hyprwatch.Logger
     public static void LogCreation()
     {
       string homeDir = Environment.GetEnvironmentVariable("HOME");
-      string filename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{GetDate()}.csv");
+      string currentDate = GetDate();
+      string filename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{currentDate}.csv");
       if(!File.Exists(filename))
       {
         string directoryPath = Path.Combine($"{homeDir}", ".cache", "Watcher", "daily_data");
@@ -151,23 +152,30 @@ namespace hyprwatch.Logger
         
         while(true)
         {
-          string date = GetDate();
-          filename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{date}.csv");
+          string newDate = GetDate();
+          if(newDate != currentDate)
+          {
+            currentDate = newDate;
+            filename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{currentDate}.csv");
+            data.Clear();
+
+            using (var fp = File.Create(filename))
+            {
+              // The using block ensures the file is created and closed properly
+            }
+          }
+
           Console.WriteLine(data);
 
           string activeWindow = GetWindows.ActiveWindow();
-          string usage = data.TryGetValue(activeWindow, out string? value) ? value : null;
-          if(usage == null)
-          {
-            usage = "00:00:00";
-          }
+          string usage = data.TryGetValue(activeWindow, out string? value) ? value : "00:00:00";
 
           Thread.Sleep(1000);
 
           usage = TimeOperations.TimeAddition("00:00:01", usage);
-          data[$"{activeWindow}"] = usage;
+          data[activeWindow] = usage;
 
-          if(File.Exists(filename))
+          /*if(File.Exists(filename))
           {
             UpdateCSV(GetDate(), data);
           }
@@ -180,7 +188,11 @@ namespace hyprwatch.Logger
             }
 
             data.Clear();
-          }
+          
+
+          }*/
+          
+          UpdateCSV(currentDate, data);
       }
     }
   }

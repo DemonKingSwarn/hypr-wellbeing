@@ -56,7 +56,8 @@ class Program
           totalTime += time;
         }
       }
-
+      
+      Console.WriteLine(" ");
       Console.WriteLine($"Today's Screen Usage\t{totalTime}");
       Console.WriteLine($"{red}{new string('-', 60)}{reset}");
       Console.WriteLine($"{yellow}{"App",-30}{"Time",30}{reset}");

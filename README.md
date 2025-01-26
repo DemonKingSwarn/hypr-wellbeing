@@ -2,13 +2,15 @@
 
 ![](./.assets/show.png)
 
-## Monitor Mode
+## Usage
+
+### Monitor Mode
 
 ```sh
 hyprwatch -d &> /dev/null & disown
 ```
 
-## Show Stats
+### Show Stats
 
 ```sh
 hyprwatch --show

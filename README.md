@@ -1,5 +1,7 @@
 # hyprwatch
 
+![](./.assets/show.png)
+
 ## Monitor Mode
 
 ```sh

@@ -4,7 +4,7 @@ namespace hyprwatch.Window
   using System.Diagnostics;
   using System.Text.RegularExpressions;
 
-  public class GetWindows
+  public partial class GetWindows
   {
     public static string ActiveWindow()
     {
@@ -28,7 +28,7 @@ namespace hyprwatch.Window
         string output = process.StandardOutput.ReadToEnd();
         process.WaitForExit();
 
-        var classMatch = Regex.Match(output, @"class:(.+)");
+        var classMatch = ClassRegex().Match(output);
 
         if(classMatch.Success)
         {
@@ -47,5 +47,8 @@ namespace hyprwatch.Window
 
       return activeWindow ?? string.Empty;
     }
-  }
+
+        [GeneratedRegex(@"class:(.+)")]
+        private static partial Regex ClassRegex();
+    }
 }

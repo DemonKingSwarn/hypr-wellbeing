@@ -6,6 +6,11 @@ class Program
 {
     static void Main(string[] args)
   {
+    string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+    string hyprwatchDirectory = Path.Combine(homeDirectory, ".cache", "hyprwatch");
+    string dailyDataDirectory = Path.Combine(hyprwatchDirectory, "daily_data");
+    Directory.CreateDirectory(dailyDataDirectory);
+
     if (args.Length == 0 || args[0] != "-d" && args[0] != "--show")
     {
       Console.WriteLine("Usage: -d || --show");

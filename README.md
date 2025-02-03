@@ -2,6 +2,18 @@
 
 ![](./.assets/show.png)
 
+## Installation
+
+### AUR
+
+```sh
+paru -S hypr-wellbeing-bin
+```
+
+### Github Releases
+
+You can download it from [Releases](https://github.com/DemonKingSwarn/hypr-wellbeing/releases)
+
 ## Usage
 
 ### Monitor Mode

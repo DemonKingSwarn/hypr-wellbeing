@@ -15,7 +15,7 @@ namespace hyprwatch.Window
 
       string socketPath = Path.Combine(xdgRuntimeDir, "hypr", hyprlandInstanceSig, ".socket2.sock");
 
-      string activeWindow = "Home-Screen";
+      string? activeWindow = null;
 
       var socket = new Socket(AddressFamily.Unix, SocketType.Stream, ProtocolType.IP);
 
@@ -26,22 +26,17 @@ namespace hyprwatch.Window
         using (var stream = new NetworkStream(socket))
         using (var reader = new StreamReader(stream))
         {
-          while (true)
-          {
             string line = reader.ReadLine();
 
-            if (line == null)
+            if (line != null)
             {
-              break;
-            }
 
-            var classMatch = ClassRegex().Match(line);
-            if(classMatch.Success)
-            {
-              activeWindow = classMatch.Groups[1].Value.Trim();
-              break;
+              var classMatch = ClassRegex().Match(line);
+              if(classMatch.Success)
+              {
+                activeWindow = classMatch.Groups[1].Value.Trim();
+              }
             }
-          }
         }
       }
       catch (Exception ex)
@@ -53,7 +48,7 @@ namespace hyprwatch.Window
         socket.Close();
       }
 
-      return activeWindow;
+      return activeWindow ?? "Home-Screen";
     }
 
     [GeneratedRegex(@"activewindow>>([^,]+)")]

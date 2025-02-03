@@ -1,4 +1,4 @@
-# hyprwatch
+# hypr-wellbeing
 
 ![](./.assets/show.png)
 

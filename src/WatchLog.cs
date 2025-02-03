@@ -165,9 +165,10 @@ namespace hyprwatch.Logger
             }
           }
 
-          Console.WriteLine(data);
+          //Console.WriteLine(data);
 
           string activeWindow = GetWindows.ActiveWindow();
+          Console.WriteLine(activeWindow);
           string usage = data.TryGetValue(activeWindow, out string? value) ? value : "00:00:00";
 
           Thread.Sleep(1000);

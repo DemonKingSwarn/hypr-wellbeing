@@ -4,13 +4,6 @@
 
 ## Usage
 
-> [!NOTE]
-> make sure you ran this command before running the program
-
-```sh
-mkdir -p $HOME/.cache/hyprwatch/daily_data
-```
-
 ### Monitor Mode
 
 ```sh

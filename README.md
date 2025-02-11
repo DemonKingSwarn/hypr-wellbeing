@@ -19,13 +19,13 @@ You can download it from [Releases](https://github.com/DemonKingSwarn/hypr-wellb
 ### Monitor Mode
 
 ```sh
-hyprwatch -d &> /dev/null &
+hypr-wellbeing -d &> /dev/null &
 ```
 
 ### Show Stats
 
 ```sh
-hyprwatch --show
+hypr-wellbeing --show
 ```
 
 ## To-Do 

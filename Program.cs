@@ -70,7 +70,8 @@ class Program
       
       foreach (var entry in data)
       {
-        Console.WriteLine($"{blue}{entry.Key,-30}{reset}{green}{entry.Value,30}{reset}");
+        string key = entry.Key.Length > 30 ? entry.Key.Substring(0, 27) + "..." : entry.Key;
+        Console.WriteLine($"{blue}{key,-30}{reset}{green}{entry.Value,30}{reset}");
       }
       
     }

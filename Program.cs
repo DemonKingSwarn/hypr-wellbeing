@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 using hyprwatch.Logger;
+using hyprwatch.Report.Weekly;
 
 class Program
 {
@@ -11,7 +12,7 @@ class Program
     string dailyDataDirectory = Path.Combine(hyprwatchDirectory, "daily_data");
     Directory.CreateDirectory(dailyDataDirectory);
 
-    if (args.Length == 0 || args[0] != "-d" && args[0] != "--show")
+    if (args.Length == 0 || args[0] != "-d" && args[0] != "--show" && args[0] != "--weekly")
     {
       Console.WriteLine("Usage: -d || --show");
       return;
@@ -74,6 +75,10 @@ class Program
         Console.WriteLine($"{blue}{key,-30}{reset}{green}{entry.Value,30}{reset}");
       }
       
+    }
+    if(args[0] == "--weekly")
+    {
+      WeeklyReport.DisplayWeeklyReport();
     }
   }
 

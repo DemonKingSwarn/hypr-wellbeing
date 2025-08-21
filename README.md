@@ -28,9 +28,14 @@ hypr-wellbeing -d &> /dev/null &
 hypr-wellbeing --show
 ```
 
+### Show Weekly Stats
+
+```sh
+hypr-wellbeing --weekly
+```
+
 ## To-Do 
 
-- [] Weekly view
 - [] Monthly view
 
 ## Special Thanks

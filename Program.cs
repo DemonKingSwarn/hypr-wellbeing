@@ -5,17 +5,23 @@ using hyprwatch.Report.Weekly;
 
 class Program
 {
-    static void Main(string[] args)
+  static void Main(string[] args)
   {
+    string version = "0.0.7";
     string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
     string hyprwatchDirectory = Path.Combine(homeDirectory, ".cache", "hyprwatch");
     string dailyDataDirectory = Path.Combine(hyprwatchDirectory, "daily_data");
     Directory.CreateDirectory(dailyDataDirectory);
 
-    if (args.Length == 0 || args[0] != "-d" && args[0] != "--show" && args[0] != "--weekly")
+    if (args.Length == 0 || args[0] != "-d" && args[0] != "--show" && args[0] != "--weekly" && args[0] != "-v")
     {
-      Console.WriteLine("Usage: -d || --show");
+      Console.WriteLine("Usage: -d || -v || --show || --weekly");
       return;
+    }
+
+    if(args[0] == "-v")
+    {
+      Console.WriteLine($"hypr-wellbeing v{version}");
     }
 
     if(args[0] == "-d")

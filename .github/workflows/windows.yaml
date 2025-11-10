@@ -1,0 +1,36 @@
+name: Build and Save C# Binary on Windows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet publish hypr-wellbeing-windows.csproj
+
+    - name: Upload binary artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: csharp-binary
+        path: |
+          **/bin/Release/net8.0/**/*.exe
+          **/bin/Release/net8.0/**/*.dll
+

@@ -24,7 +24,7 @@ jobs:
       run: dotnet publish hypr-wellbeing-windows.csproj
 
     - name: Upload binary artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: csharp-binary
         path: |

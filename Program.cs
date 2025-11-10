@@ -10,7 +10,7 @@ class Program
   {
     string os;
 
-    string version = "0.0.7";
+    string version = "0.0.8";
     string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
     string configDir = Path.Combine(homeDirectory, ".config", "hypr-wellbeing");
     string configFile = Path.Combine(configDir, "config.json");
@@ -18,8 +18,6 @@ class Program
     string dailyDataDirectory = Path.Combine(hyprwatchDirectory, "daily_data");
     Directory.CreateDirectory(dailyDataDirectory);
     Directory.CreateDirectory(configDir);
-
-    
 
     if (args.Length == 0 || args[0] != "-d" && args[0] != "--show" && args[0] != "--weekly" && args[0] != "-v")
     {

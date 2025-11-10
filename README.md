@@ -39,6 +39,16 @@ hypr-wellbeing -d &> /dev/null &
 hypr-wellbeing.exe -d > $null 2>&1
 ```
 
+**NOTE**: For windows you have to explicitly mention that its running on windows by adding in the config file:
+
+```json
+{
+  "os": "Windows"
+}
+```
+
+Config file is located in `C:/Users/your username/hypr-wellbeing/config.json`
+
 ### Show Stats
 
 ```sh

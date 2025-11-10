@@ -11,7 +11,8 @@ namespace hyprwatch.Report
   {
     public static Dictionary<string, string> FinalReport(string date)
     {
-      string path = Environment.GetEnvironmentVariable("HOME") + "/.cache/hyprwatch/daily_data/";
+      string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+      string path = homeDir + "/.cache/hyprwatch/daily_data/";
       string filename = Path.Combine(path, date + ".csv");
 
       var report = new Dictionary<string, string>();
@@ -81,7 +82,7 @@ namespace hyprwatch.Report
 
     public static void WeeklyLogs(string week)
     {
-      string user = Environment.GetEnvironmentVariable("HOME");
+      string user = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
       string filename = Path.Combine(user, ".cache/Watcher/Analysis/", week + ".csv");
 
       using (var writer = new StreamWriter(filename))

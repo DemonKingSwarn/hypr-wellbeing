@@ -60,11 +60,6 @@ namespace hyprwatch.Logger
         }
       }
 
-      else if(os == "Windows")
-      {
-        t = DateTime.Now.ToString("HH:mm:ss");
-      }
-
       return t ?? string.Empty;
     }
 
@@ -98,35 +93,6 @@ namespace hyprwatch.Logger
             {
               FileName = "date",
               Arguments = "+%d-%m-%Y",
-              RedirectStandardOutput = true,
-              UseShellExecute = false,
-              CreateNoWindow = true,
-            }
-          };
-
-          process.Start();
-
-          string output = process.StandardOutput.ReadToEnd();
-          process.WaitForExit();
-
-          d = output.Substring(0, output.Length - 1);
-        }
-        catch(Exception ex)
-        {
-          Console.WriteLine(ex.Message);
-        }
-      }
-
-      else if(os == "Windows")
-      {
-        try
-        {
-          Process process = new Process
-          {
-            StartInfo = new ProcessStartInfo
-            {
-              FileName = "powershell",
-              Arguments = "-Command \"Get-Date -Format dd-MM-yyyy\"",
               RedirectStandardOutput = true,
               UseShellExecute = false,
               CreateNoWindow = true,
@@ -207,7 +173,7 @@ namespace hyprwatch.Logger
       string filename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{currentDate}.csv");
       if(!File.Exists(filename))
       {
-        string directoryPath = Path.Combine($"{homeDir}", ".cache", "Watcher", "daily_data");
+        string directoryPath = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data");
 
         Directory.CreateDirectory(directoryPath);
 

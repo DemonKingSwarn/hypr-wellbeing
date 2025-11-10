@@ -9,13 +9,6 @@ namespace hyprwatch.Window
 
   public partial class GetWindows
   {
-        
-    [DllImport("user32.dll")]
-    static extern IntPtr GetForegroundWindow();
-
-    [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
-
     public static string ActiveWindow()
     {
       string desktopEnv = Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP");
@@ -89,20 +82,6 @@ namespace hyprwatch.Window
         catch(Exception ex)
         {
           Console.WriteLine(ex.Message);
-        }
-      }
-
-      else if (os == "Windows")
-      {
-        
-        IntPtr handle = GetForegroundWindow();
-        if(handle != IntPtr.Zero)
-        {
-          StringBuilder className = new StringBuilder(256);
-          if(GetClassName(handle, className, className.Capacity) > 0)
-          {
-            activeWindow = className.ToString();
-          }
         }
       }
 

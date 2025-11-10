@@ -10,6 +10,15 @@
 paru -S hypr-wellbeing-bin
 ```
 
+### Windows
+
+Make sure [Scoop](https://scoop.sh/) is installed.
+
+```sh
+scoop bucket add demon-apps https://github.com/DemonKingSwarn/flix-cli-bucket.git
+scoop install hypr-wellbeing
+```
+
 ### Github Releases
 
 You can download it from [Releases](https://github.com/DemonKingSwarn/hypr-wellbeing/releases)
@@ -18,8 +27,16 @@ You can download it from [Releases](https://github.com/DemonKingSwarn/hypr-wellb
 
 ### Monitor Mode
 
+**Linux**:
+
 ```sh
 hypr-wellbeing -d &> /dev/null &
+```
+
+**Windows**:
+
+```sh
+hypr-wellbeing.exe -d > $null 2>&1
 ```
 
 ### Show Stats

@@ -8,6 +8,10 @@
     <PublishAot>true</PublishAot>
     <IsAotCompatible>true</IsAotCompatible>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
-  </PropertyGroup>
+    </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.json" Version="13.0.4" />
+  </ItemGroup>
 
 </Project>

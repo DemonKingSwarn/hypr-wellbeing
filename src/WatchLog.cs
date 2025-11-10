@@ -5,6 +5,7 @@ namespace hyprwatch.Logger
   using System.Threading;
   using System.Diagnostics;
   using System.Collections.Generic;
+  using Newtonsoft.Json;
   using hyprwatch.Window;
   using hyprwatch.Time;
 
@@ -13,31 +14,55 @@ namespace hyprwatch.Logger
     public static string GetTime()
     {
       string? t = null;
+      string? os = null;
 
-      try
+      string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+      string configFile = Path.Combine(homeDir, ".config", "hypr-wellbeing", "config.json");
+
+      if(File.Exists(configFile))
       {
-        Process process = new Process
-        {
-          StartInfo = new ProcessStartInfo
-          {
-            FileName = "date",
-            Arguments = "+%T",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-          }
-        };
-
-        process.Start();
-
-        string output = process.StandardOutput.ReadToEnd();
-        process.WaitForExit();
-
-        t = output.Substring(0, output.Length - 1);
+        string content = File.ReadAllText(configFile);
+        var config = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+    
+        os = config["os"];
       }
-      catch(Exception ex)
+      else
       {
-        Console.WriteLine(ex.Message);
+        os = "Linux";
+      }
+
+      if(os == "Linux")
+      {
+        try
+        {
+          Process process = new Process
+          {
+            StartInfo = new ProcessStartInfo
+            {
+              FileName = "date",
+              Arguments = "+%T",
+              RedirectStandardOutput = true,
+              UseShellExecute = false,
+              CreateNoWindow = true,
+            }
+          };
+
+          process.Start();
+
+          string output = process.StandardOutput.ReadToEnd();
+          process.WaitForExit();
+
+          t = output.Substring(0, output.Length - 1);
+        }
+        catch(Exception ex)
+        {
+          Console.WriteLine(ex.Message);
+        }
+      }
+
+      else if(os == "Windows")
+      {
+        t = DateTime.Now.ToString("HH:mm:ss");
       }
 
       return t ?? string.Empty;
@@ -46,31 +71,79 @@ namespace hyprwatch.Logger
     public static string GetDate()
     {
       string? d = null;
+      string? os = null;
 
-      try
+      string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+      string configFile = Path.Combine(homeDir, ".config", "hypr-wellbeing", "config.json");
+
+      if(File.Exists(configFile))
       {
-        Process process = new Process
-        {
-          StartInfo = new ProcessStartInfo
-          {
-            FileName = "date",
-            Arguments = "+%d-%m-%Y",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true,
-          }
-        };
-
-        process.Start();
-
-        string output = process.StandardOutput.ReadToEnd();
-        process.WaitForExit();
-
-        d = output.Substring(0, output.Length - 1);
+        string content = File.ReadAllText(configFile);
+        var config = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+    
+        os = config["os"];
       }
-      catch(Exception ex)
+      else
       {
-        Console.WriteLine(ex.Message);
+        os = "Linux";
+      }
+
+      if(os == "Linux")
+      {
+        try
+        {
+          Process process = new Process
+          {
+            StartInfo = new ProcessStartInfo
+            {
+              FileName = "date",
+              Arguments = "+%d-%m-%Y",
+              RedirectStandardOutput = true,
+              UseShellExecute = false,
+              CreateNoWindow = true,
+            }
+          };
+
+          process.Start();
+
+          string output = process.StandardOutput.ReadToEnd();
+          process.WaitForExit();
+
+          d = output.Substring(0, output.Length - 1);
+        }
+        catch(Exception ex)
+        {
+          Console.WriteLine(ex.Message);
+        }
+      }
+
+      else if(os == "Windows")
+      {
+        try
+        {
+          Process process = new Process
+          {
+            StartInfo = new ProcessStartInfo
+            {
+              FileName = "powershell",
+              Arguments = "-Command \"Get-Date -Format dd-MM-yyyy\"",
+              RedirectStandardOutput = true,
+              UseShellExecute = false,
+              CreateNoWindow = true,
+            }
+          };
+
+          process.Start();
+
+          string output = process.StandardOutput.ReadToEnd();
+          process.WaitForExit();
+
+          d = output.Substring(0, output.Length - 1);
+        }
+        catch(Exception ex)
+        {
+          Console.WriteLine(ex.Message);
+        }
       }
 
       return d ?? string.Empty;
@@ -78,7 +151,7 @@ namespace hyprwatch.Logger
 
     static void UpdateCSV(string date, Dictionary<string, string> data)
     {
-      string homeDir = Environment.GetEnvironmentVariable("HOME") ?? throw new InvalidOperationException("HOME environment variable is not set.");
+      string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
       string filePath = Path.Combine(homeDir, ".cache", "hyprwatch", "daily_data", $"{date}.csv");
 
 
@@ -129,7 +202,7 @@ namespace hyprwatch.Logger
 
     public static void LogCreation()
     {
-      string homeDir = Environment.GetEnvironmentVariable("HOME");
+      string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
       string currentDate = GetDate();
       string filename = Path.Combine($"{homeDir}", ".cache", "hyprwatch", "daily_data", $"{currentDate}.csv");
       if(!File.Exists(filename))

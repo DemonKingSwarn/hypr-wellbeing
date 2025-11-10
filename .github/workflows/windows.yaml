@@ -18,7 +18,7 @@ jobs:
         dotnet-version: '8.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore hypr-wellbeing-windows.csproj
 
     - name: Build project
       run: dotnet publish hypr-wellbeing-windows.csproj

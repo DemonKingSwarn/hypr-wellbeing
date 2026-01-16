@@ -1,6 +1,6 @@
 # hypr-wellbeing
 
-![](./.assets/show.png)
+![](./.assets/showcase.png)
 
 ## Installation
 

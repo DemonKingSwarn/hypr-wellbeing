@@ -10,7 +10,7 @@ class Program
   {
     string os;
 
-    string version = "0.0.8";
+    string version = "0.0.9";
     string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
     string configDir = Path.Combine(homeDirectory, ".config", "hypr-wellbeing");
     string configFile = Path.Combine(configDir, "config.json");

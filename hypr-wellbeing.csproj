@@ -6,12 +6,10 @@
     <Nullable>enable</Nullable>
     <PublishAot>true</PublishAot>
     <IsAotCompatible>true</IsAotCompatible>
-    <RuntimeIdentifier>linux-musl-x64</RuntimeIdentifier>  <!-- musl for static -->
-    <StaticExecutable>true</StaticExecutable>
+    <RuntimeIdentifier>linux-musl-x64</RuntimeIdentifier>
     <StripSymbols>true</StripSymbols>
-    <InvariantGlobalization>true</InvariantGlobalization>  <!-- removes ICU dep -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <StaticExecutable>true</StaticExecutable>
+    <CppCompilerAndLinker>clang-wrapper</CppCompilerAndLinker>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-  </ItemGroup>
 </Project>

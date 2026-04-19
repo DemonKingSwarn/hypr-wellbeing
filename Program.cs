@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
-using Newtonsoft.Json;
 using hyprwatch.Logger;
 using hyprwatch.Report.Weekly;
 

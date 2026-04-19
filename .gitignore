@@ -1,4 +1,4 @@
 bin/
 obj/
 
-!usr/local/bin/*
+!usr/local/bin/clang-wrapper

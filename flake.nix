@@ -20,7 +20,7 @@ outputs = { self, nixpkgs }:
         }.${system};
 
         sha256 = {
-          "x86_64-linux" = "sha256-sem/XST8hSfyFGbAhnLXxFtkhp7uo9k91mL/sEIVBlM=";
+          "x86_64-linux" = "sha256-LSG+PQpbbunRCeBHyd1A7X+wAPsX942I5aZnIz8cL2I=";
         }.${system};
 
       in
